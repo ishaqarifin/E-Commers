@@ -6,11 +6,11 @@ function Product() {
   return (
     <div>
       <Navbar />
-        <div className='ml-16 font-bold text-red-500 mt-5'>Product</div>
+      <div className="ml-16 font-bold text-red-500 mt-5">Product</div>
       <div className="flex w-full ml-16 mt-4">
-        {Data.map((data,index) => (
+        {Data.map((data, index) => (
           <div className="rounded-lg shadow-lg bg-stone-900 max-w-sm w-56 mr-4 h-84">
-            <a href="detail">
+            <a href="detail/:id">
               <img className="rounded-t-lg h-72" src={data.image} alt="" />
             </a>
             <div className="p-3">

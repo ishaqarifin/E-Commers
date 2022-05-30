@@ -22,7 +22,7 @@ function Register() {
       type: "login",
       payload: data,
     });
-    history.push("/complainadmin");
+    // history.push("/complainadmin");
   };
 
   return (
