@@ -17,8 +17,8 @@ function Product() {
       <div className="ml-20 mt-5 font-bold">Product</div>
       {modalOn && <Modal setModalOn={setModalOn} />}
       <div className="mx-20 my-5">
-        <button class="hover:bg-gray-800 mb-5 font-bold border py-2 px-4 rounded inline-flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <button className="hover:bg-gray-800 mb-5 font-bold border py-2 px-4 rounded inline-flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <span>Add Product</span>

@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
-import {Link, useHistory} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import {UserContext} from "../components/context/useContext"
 
 function NavbarAdmin() {
-  let history = useHistory();
+  let navigate = useNavigate();
 
   const [state, dispatch] = useContext(UserContext);
   console.log(state);
 
   const handlelogot = () => {
     dispatch({
-      type: "logot",
+      type: "LOGOUT",
     });
-    history.push("/");
+    navigate("/");
   };
   
   return (
@@ -23,15 +23,17 @@ function NavbarAdmin() {
 
       <div className="w-42 flex ">
         <ul className="flex space-x-5 font-bold">
-          <li>
-            {/* <Link to="complainadmin">Complain</Link> */}
-            <a class="text-white hover:text-red-500" href="complainadmin">Complain</a>
+          <li className="cursor-pointer">
+            <Link to="/complainadmin">Complain</Link>
+            {/* <a class="text-white hover:text-red-500">Complain</a> */}
           </li>
           <li className="odd:text-red-600">
-            <Link to="category" className="text-white selection:text-red-500">Category</Link>
+            <Link to="/category" className="text-white selection:text-red-500">
+              Category
+            </Link>
           </li>
           <li>
-            <Link to="product">Product</Link>
+            <Link to="/product">Product</Link>
           </li>
           <li>
             <button onClick={handlelogot}>Logout</button>

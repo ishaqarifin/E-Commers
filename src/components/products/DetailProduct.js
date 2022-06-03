@@ -1,9 +1,8 @@
 import React from 'react'
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import Navbar from '../Navbar';
 
 function DetailProduct() {
-  const param = useParams
   return (
     <>
       <Navbar />

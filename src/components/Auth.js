@@ -14,8 +14,8 @@ function Auth() {
   }
 
   return (
-    <div className="flex-col md:flex h-screen">
-      <div className="flex flex-col md:bg-slate-400 basis-6/12 ml-24 justify-center text-left">
+    <div className="flex md:flex h-screen">
+      <div className="flex flex-col basis-6/12 ml-24 justify-center text-left">
         <img src="./assets/logo.png" alt="logo" style={{ width: "200px" }} />
           <div className="text-5xl font-bold my-6">
             Easy, Fast and Reliable
