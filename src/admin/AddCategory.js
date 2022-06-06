@@ -1,47 +1,39 @@
 import React, { useState } from 'react'
-import { useMutation, useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom'
 import { API } from '../config/api';
-import NavbarAdmin from './NavbarAdmin';
+import NavbarAdmin from './NavbarAdmin'
 
-function EditCategory() {
-  let navigate=useNavigate()
-  const {id} = useParams()
-  const [category, setCategory] = useState({ name: '' });
-
-  // Fetching category data by id from database
-  useQuery('categoryCache', async () => {
-    const response = await API.get('/category/' + id);
-    setCategory({name: response.data.data.name})
-  });
+export default function AddCategory() {
+  let navigate = useNavigate()
+  const [category, setCategory] = useState('');
 
   const handleChange = (e) => {
-    setCategory({
-      ...category,
-      name: e.target.value,
-    });
+    setCategory(e.target.value);
   };
 
   const handleSubmit = useMutation(async (e) => {
     try {
       e.preventDefault();
 
+      // Configuration
       const config = {
         headers: {
           'Content-type': 'application/json',
         },
       };
 
-      const body = JSON.stringify(category);
-      console.log(body);
-      await API.patch('/updatecategory/'+id, body, config);
+      // Data body
+      const body = JSON.stringify({ name: category });
+
+      // Insert category data
+      await API.post('/addcategory', body, config);
 
       navigate('/category');
     } catch (error) {
       console.log(error);
     }
   });
-
   return (
     <div className="w-screen">
       <NavbarAdmin />
@@ -53,7 +45,7 @@ function EditCategory() {
             type="text"
             name='name'
             onChange={handleChange}
-            value={category.name} 
+            value={category} 
             placeholder="category"
             className="shadow appearance-none border rounded w-full py-2 px-3 bg-stone-800 text-white leading-tight focus:outline-none focus:shadow-outline" 
             />
@@ -61,12 +53,10 @@ function EditCategory() {
           <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" 
           type="submit"
           >
-            Edit
+            Add
           </button>
         </div>
       </form>
     </div>
-  );
+  )
 }
-
-export default EditCategory

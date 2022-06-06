@@ -1,22 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Chat from '../components/complain/Chat';
 import NavbarAdmin from './NavbarAdmin';
+// import package here
+import { io } from 'socket.io-client'
+import Contact from '../components/complain/Contact';
+// init variable here
+let socket
 
 function ComplainAdmin() {
+  
+  const [contact, setContact] = useState(null) // data contact yang diklik
+  const [contacts, setContacts] = useState([]) // data contact dari server
+
+  useEffect(() => {
+    socket = io('http://localhost:5001')
+    loadContacts()
+    return () => {
+        socket.disconnect()
+    }
+}, [])
+
+const loadContacts = () => {
+  socket.emit("load customer contacts")
+  socket.on("customer contacts", (data) => {
+    console.log(data);
+      let dataContacts = data.map((item) => ({
+          ...item,
+          message: "Click here to start message"
+      }))
+      setContacts(dataContacts)
+  })
+}
+
+const onClickContact = (data) => {
+  setContact(data)
+}
   return (
     <>
       <NavbarAdmin />
       <div className="flex justify-center">
-        <div class="flex h-full w-3/12 mx-5 mt-10 justify-between cursor-pointer border-b-2 border-neutral-700 hover:bg-stone-800">
-          <div className="w-16 h-16 p-2">
-            <img className="rounded-full w-full h-full" src="./assets/a.jpg" alt="" />
-          </div>
-          <div className="block mt-2 -ml-10">
-            <h2 className="font-semibold text-justify">Admin</h2>
-            <p className="text-sm text-stone-400">hy, how are you...</p>
-          </div>
-          <div className="font-sm text-sm items-center mt-4">22:12</div>
-        </div>
+        <Contact dataContact={contacts} clickContact={onClickContact} contact={contact} />
         {/* <div class="w-9/12 border-l-2 p-2">right</div> */}
         <Chat />
       </div>

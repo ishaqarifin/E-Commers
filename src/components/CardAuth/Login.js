@@ -46,16 +46,18 @@ function Login() {
         if (response.data.data.role === "admin") {
           navigate('/product')
         } else {
-          navigate('/products')
+          navigate('/')
         }
       }
 
     } catch (error) {
       const alert = (
-        <alert variant="danger" className="py-1">
-          Failed
-        </alert>
-      );
+        <div role="alert">
+          <div className="bg-red-500 text-white font-bold rounded-t px-4 py-1 mt-2">
+            Failed
+          </div>
+        </div>
+        );
       setMessage(alert);
       console.log(error);
     }    

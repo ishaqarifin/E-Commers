@@ -1,13 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function CardProduct({item}) {
   return (
-    <div className="rounded-lg shadow-lg bg-stone-900 max-w-sm w-56 mr-4 h-84">
-      <a href="detail/:id">
-        <img className="rounded-t-lg h-72" src={item.image} alt="" />
-      </a>
+    <div className="rounded-lg shadow-lg bg-stone-900 py-4">
+      <Link to={`/detail/${item.id}`}>
+        <img className="rounded-t-lg h-52" src={item.image} alt="" />
+      </Link>
       <div className="p-3">
-        <h5 className="text-red-500 text-xl font-medium">{item.name}</h5>
+        <h5 className="text-red-500 text-xl font-medium">{item.title}</h5>
         <p className="text-white text-base">Price : {item.price}</p>
         <p className="text-white text-base">Stok : {item.qty}</p>
         {/* <button

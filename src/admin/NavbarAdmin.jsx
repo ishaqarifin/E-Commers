@@ -6,7 +6,7 @@ function NavbarAdmin() {
   let navigate = useNavigate();
 
   const [state, dispatch] = useContext(UserContext);
-  console.log(state);
+  // console.log(state);
 
   const handlelogot = () => {
     dispatch({

@@ -44,11 +44,22 @@ function Register() {
       const response = await API.post("/register", body, config);
       console.log(response);
       // Handling response here
+      if (response.status === "success") {
+        const alert = (
+          <div role="alert">
+            <div className="bg-blue-500 text-white font-bold rounded-t px-4 py-2 mt-2">
+              Success
+            </div>
+          </div>
+        )
+        setMessage(alert);};
     } catch (error) {
       const alert = (
-        <alert variant="danger" className="py-1">
+        <div role="alert">
+        <div className="bg-red-500 text-white font-bold rounded-t px-4 py-2 mt-2">
           Failed
-        </alert>
+        </div>
+      </div>
       );
       setMessage(alert);
       console.log(error);

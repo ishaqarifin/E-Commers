@@ -1,12 +1,12 @@
 import React from 'react'
 
-function modal({setModalOn}) {
+function modal({ show, handleClose, setConfirmDelete }) {
 
-  const batal =()=> {
-    setModalOn(false)
+  const handleDelete =()=> {
+    setConfirmDelete(true)
   }
   return (
-    <div className="bg-white flex-col p-5 rounded w-80 h-28 m-auto absolute inset-0 justify-center items-center">
+    <div show={show} onHide={handleClose} className="bg-white flex-col p-5 rounded w-80 h-28 m-auto absolute inset-0 justify-center items-center">
       <div className="flex justify-between items-center">
         <h4 className="text-sm font-bold text-black ">Delete Data</h4>
       </div>
@@ -15,12 +15,12 @@ function modal({setModalOn}) {
       </div>
       <button className="bg-green-500 font-bold text-xs hover:bg-green-700 text-white py-1 w-16 rounded focus:outline-none focus:shadow-outline" 
       type="button" 
-      onClick={batal}>
+      onClick={handleDelete}>
         Yes
       </button>
       <button className="bg-red-500 font-bold text-xs hover:bg-red-700 text-white py-1 w-16 rounded focus:outline-none focus:shadow-outline ml-2" 
       type="button" 
-      onClick={batal}>
+      onClick={handleClose}>
         No
       </button>
     </div>

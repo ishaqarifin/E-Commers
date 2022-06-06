@@ -28,7 +28,7 @@ function Navbar() {
       <div className="w-42 flex ">
         <ul className="flex space-x-5 font-bold">
           <li className="hover:animate-bounce bg-slate-500 text-center">
-            <Link to="complain">
+            <Link to="/complain">
               <div className="m-auto">Complain</div>
             </Link>
           </li>

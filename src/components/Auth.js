@@ -1,9 +1,22 @@
 import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import Login from "./CardAuth/Login"
 import Register from "./CardAuth/Register";
+// import { UserContext } from "./context/useContext";
 
 function Auth() {
-  const [login, setLogin] = useState(false)
+  // let navigate = useNavigate();
+
+  // const [state] = useContext(UserContext);
+
+  // const checkAuth = () => {
+  //   if (state.isLogin === true) {
+  //     navigate("/");
+  //   }
+  // };
+  // checkAuth();
+
+  const [login, setLogin] = useState(true)
 
   const handleLogin= ()=>(
     setLogin(true)

@@ -1,20 +1,24 @@
 import React from 'react'
 import Navbar from '../Navbar'
-import Data from '../context/Data';
+// import Data from '../context/Data';
 import CardProduct from './CardProduct';
 
-// import {useQuery} from 'react-query'
-// import {API} from '../../config/api'
+import {useQuery} from 'react-query'
+import {API} from '../../config/api'
 
 function Product() {
-  
+  // Fetching product data from database
+  let { data: products } = useQuery("productsCache", async () => {
+    const response = await API.get("/products");
+    return response.data.data;
+  });
 
   return (
-    <div>
+    <div className=''>
       <Navbar />
-      <div className="ml-16 font-bold text-red-500 mt-5">Product</div>
-      <div className="flex w-full ml-16 mt-4">
-        {Data?.map((data, index) => (
+      <div className="ml-16 text-3xl font-bold text-red-500 mt-5">Product</div>
+      <div className=" p-16 grid grid-cols-5 gap-10">
+        {products?.map((data, index) => (
           <CardProduct item={data} key={index} />
         ))}
       </div>

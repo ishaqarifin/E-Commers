@@ -1,27 +1,67 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
-import Data from '../components/context/Data';
-import ModalCategory from './ModalCategory';
+import React, { useEffect, useState } from 'react'
+import { useNavigate, NavLink } from 'react-router-dom';
+// import ModalCategory from './ModalCategory';
 import NavbarAdmin from './NavbarAdmin';
 
+import { useMutation, useQuery } from 'react-query';
+import { API } from '../config/api';
+import Modal from './modal';
+
 function Category() {
+  let navigate = useNavigate()
 
-  const [modalCategory, setModalCategory] = useState(false)
+  const [idDelete, setIdDelete] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  const click = () => {
-    setModalCategory(true);
+  const handleEdit = (id)=> {
+    navigate(`/editcategory/${id}`)
+  }
+
+  let { data: categories, refetch } = useQuery("categoriesCache", async () => {
+    const response = await API.get("/categories");
+    return response.data.data;
+  });
+
+  const handleDelete = (id) => {
+    setIdDelete(id);
+    console.log(id);
+    handleShow();
   };
+  const deleteById = useMutation(async (id) => {
+    try {
+      await API.delete(`/deletecategory/${id}`);
+      refetch();
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  useEffect(() => {
+    if (confirmDelete) {
+      // Close modal confirm delete data
+      handleClose();
+      // execute delete data  by id function
+      deleteById.mutate(idDelete);
+      setConfirmDelete(null);
+    }
+  }, [confirmDelete]);
 
   return (
     <div className='w-screen'>
       <NavbarAdmin />
       <div className="ml-20 mt-5 font-bold mb-5">List Category</div>
-      {modalCategory && <ModalCategory setModalCategory={setModalCategory} />}
-      <button class="hover:bg-gray-800 font-bold border ml-20 py-2 px-4 rounded inline-flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span>Add Category</span>
+      {show && <Modal 
+        setConfirmDelete={setConfirmDelete}
+        show={show}
+        handleClose={handleClose}
+        />}
+      <button className="hover:bg-gray-800 font-bold border ml-20 py-2 px-4 rounded inline-flex items-center">
+        <NavLink to="/addcategory">
+            <span>Add Product</span>
+          </NavLink>
       </button>
       <div className="mx-20 my-5">
         <table className="w-full table-auto">
@@ -39,24 +79,28 @@ function Category() {
             </tr>
           </thead>
           <tbody>
-            {Data.map((data, index) => (
+            {categories?.map((item, index) => (
               <tr className="border-b bg-stone-800">
                 {/* <th scope="row" className="px-6 py-4 font-medium text-gray-900">
-              book
-            </th> */}
-                <td className="px-6 py-3">{data.id}</td>
-                <td className="px-6 py-3">{data.name}</td>
+                  book
+                </th> */}
+                <td className="px-6 py-3">{item.id}</td>
+                <td className="px-6 py-3">{item.name}</td>
                 <td className="px-6 text-center">
-                  <Link to="editcategory">
-                    <button className="bg-green-500 hover:bg-green-700 text-white py-1 w-16 rounded focus:outline-none focus:shadow-outline" type="button">
-                      Edit
-                    </button>
-                  </Link>
                   <button
-                    onClick={click}
+                  onClick={()=> {
+                    handleEdit(item.id)
+                  }} 
+                  className="bg-green-500 hover:bg-green-700 text-white py-1 w-16 rounded focus:outline-none focus:shadow-outline" type="button"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => {
+                      handleDelete(item.id)
+                    }}
                     className="bg-red-500 hover:bg-red-700 text-white py-1 w-16 rounded focus:outline-none focus:shadow-outline ml-2"
                     type="button"
-                    // onClick={clicked}
                   >
                     Delete
                   </button>
