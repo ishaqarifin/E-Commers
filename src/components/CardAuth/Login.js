@@ -65,7 +65,7 @@ function Login() {
 
   return (
     <div className="w-full max-w-xs">
-      <form className="bg-stone-900 shadow-md rounded px-8 pt-6 pb-8" onSubmit={(e) => handleSubmit.mutate(e)}>
+      <form className="dark:bg-stone-900 bg-slate-300 shadow-md rounded px-8 pt-6 pb-8" onSubmit={(e) => handleSubmit.mutate(e)}>
         <span className="text-2xl font-bold">Login</span>
         {message && message}
         <div className="my-4">

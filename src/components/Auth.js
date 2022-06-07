@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import Login from "./CardAuth/Login"
 import Register from "./CardAuth/Register";
+import Toggle from "./darkmode/Toggle";
 // import { UserContext } from "./context/useContext";
 
 function Auth() {
@@ -27,7 +28,10 @@ function Auth() {
   }
 
   return (
-    <div className="flex md:flex h-screen">
+    <div className="flex md:flex h-screen bg-slate-400 dark:bg-black dark:text-white">
+      <div className="absolute p-10">
+          <Toggle />
+      </div>
       <div className="flex flex-col basis-6/12 ml-24 justify-center text-left">
         <img src="./assets/logo.png" alt="logo" style={{ width: "200px" }} />
           <div className="text-5xl font-bold my-6">

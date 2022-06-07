@@ -3,8 +3,8 @@ import { Routes, Route,
   useNavigate
  } from 'react-router-dom'
 
-import Product from "./admin/Product";
 import Auth from "./components/Auth"
+import Product from "./admin/Product";
 import Profile from "./components/profile/profile"
 import Products from "./components/products/Product"
 import Complain from "./components/complain/Complain"
@@ -15,10 +15,10 @@ import ComplainAdmin from "./admin/ComplainAdmin";
 import Category from "./admin/Category"
 import EditCategory from "./admin/EditCategory";
 import Cart from "./components/profile/Cart";
+import AddCategory from "./admin/AddCategory";
 
 import { API, setAuthToken } from "./config/api";
 import { UserContext } from "./components/context/useContext";
-import AddCategory from "./admin/AddCategory";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token)
